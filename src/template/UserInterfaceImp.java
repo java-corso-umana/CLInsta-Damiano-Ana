@@ -8,26 +8,24 @@ import java.util.Scanner;
 
 import static utils.Database.users;
 
-public class UserInterfaceImp implements UserInterface{
-
+public class UserInterfaceImp implements UserInterface {
 
     boolean isLogged = false;
     Scanner sc = new Scanner(System.in);
 
     @Override
     public void run() {
-        String firstMessage ="""
+        String firstMessage = """
                 Benvenuto su CLInsta!
                 Accedi o registrati in questo bellissimo social!
                 (Inserisci 1 per accedere o 2 per registrarti o E per uscire)
                 """;
 
-
         boolean status = true;
 
-        do{
+        do {
             System.out.println(firstMessage);
-            for(User user : Database.users){
+            for (User user : Database.users) {
                 System.out.println(user.getName());
             }
             String input = sc.nextLine();
@@ -35,7 +33,7 @@ public class UserInterfaceImp implements UserInterface{
                 case "1":
                     try {
                         login();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println(e);
                     }
                     break;
@@ -47,7 +45,7 @@ public class UserInterfaceImp implements UserInterface{
                 default:
                     System.out.println("Comando non riconosciuto");
             }
-        }while(status = true);
+        } while (status = true);
     }
 
     @Override
@@ -60,23 +58,23 @@ public class UserInterfaceImp implements UserInterface{
         String nickname = sc.nextLine();
         System.out.print("Inserisci la tua nuova password: ");
         String password = sc.nextLine();
-        User user = new User(name,surname,nickname,password);
+        User user = new User(name, surname, nickname, password);
         Database.users.add(user);
     }
 
     @Override
-    public void login() throws Exception{
+    public void login() throws Exception {
         System.out.print("Inserisci il nickname: ");
         String nickname = sc.nextLine();
         System.out.print("Inserisci la password: ");
         String password = sc.nextLine();
-        for(User user : Database.users){
-            if((nickname.equals(user.getNickname())) && (password.equals(user.getPassword()))){
+        for (User user : Database.users) {
+            if ((nickname.equals(user.getNickname())) && (password.equals(user.getPassword()))) {
                 System.out.println("Sei loggato");
                 isLogged = true;
                 runApp(user);
                 break;
-            }else{
+            } else {
                 throw new Exception("Campi errati");
             }
         }
@@ -87,8 +85,8 @@ public class UserInterfaceImp implements UserInterface{
 
     }
 
-    public void runApp(User user){
-        System.out.println("Benvenuto "+user.getName()+'\n');
+    public void runApp(User user) {
+        System.out.println("Benvenuto " + user.getName() + '\n');
         boolean status = true;
         do {
             System.out.println("Cosa vorresti fare?");
@@ -105,7 +103,7 @@ public class UserInterfaceImp implements UserInterface{
                     """;
             System.out.println(options);
             String input = sc.nextLine();
-            switch (input){
+            switch (input) {
                 case "1":
                     showFollower();
                     break;
@@ -134,9 +132,8 @@ public class UserInterfaceImp implements UserInterface{
                     logout();
                     break;
             }
-        }while(status = true);
+        } while (status = true);
     }
-
 
     @Override
     public void showFollower() {
@@ -155,7 +152,9 @@ public class UserInterfaceImp implements UserInterface{
 
     @Override
     public void showAll() {
-
+        for (User user : Database.users) {
+            System.out.println(user.toString());
+        }
     }
 
     @Override
