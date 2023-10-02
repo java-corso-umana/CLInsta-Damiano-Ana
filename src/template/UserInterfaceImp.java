@@ -3,10 +3,9 @@ package template;
 import model.User;
 import utils.Database;
 
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
-import static utils.Database.users;
 
 public class UserInterfaceImp implements UserInterface{
 
@@ -150,7 +149,19 @@ public class UserInterfaceImp implements UserInterface{
 
     @Override
     public void searchPeople() {
+        System.out.println("Inserisci il nome che vuoi cercare");
+        String name = sc.nextLine();
+        List<User> tmp = new ArrayList<>();
+        for(User user: Database.users){
+            if(user.getName().startsWith(name)) {
+                tmp.add(user);
+            }
+        }
+        System.out.println(tmp);
+    }
 
+    public static boolean startWithIgnoreCase(String str,String prefix){
+        return str.regionMatches(true,0,prefix,0,prefix.length());
     }
 
     @Override
