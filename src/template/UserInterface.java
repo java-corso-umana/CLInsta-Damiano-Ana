@@ -1,3 +1,5 @@
+package template;
+
 public interface UserInterface {
 
     void run();
