@@ -4,9 +4,15 @@ public class User {
     private String name;
     private String surname;
     private String nickname;
-    private String date; //TODO: aggiornare
+    //private String date; TODO: aggiornare
     private String password;
 
+    public User(String name, String surname, String nickname, String password){
+        this.name = name;
+        this.surname = surname;
+        this.nickname = nickname;
+        this.password = password;
+    }
 
 
     public void setName(String name) {
