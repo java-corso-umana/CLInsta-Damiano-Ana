@@ -46,4 +46,12 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    @Override
+    public String toString() {
+        return "NOME: " + this.name + '\n' +
+                "COGNOME: " + this.surname + '\n' +
+                "NICKNAME: " + this.nickname + '\n';
+    }
+
 }
