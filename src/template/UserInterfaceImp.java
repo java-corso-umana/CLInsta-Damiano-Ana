@@ -73,7 +73,6 @@ public class UserInterfaceImp implements UserInterface{
                     System.out.println("Sei loggato");
                     isLogged = true;
                     runApp(user);
-                    break;
                 } else {
                     throw new Exception("Campi errati");
                 }
@@ -130,9 +129,11 @@ public class UserInterfaceImp implements UserInterface{
                         break;
                     case "0":
                         logout();
+                        status = false;
                         break;
                 }
             } while (status = true);
+            run();
         }
 
         @Override
