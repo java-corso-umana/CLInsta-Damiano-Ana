@@ -27,7 +27,11 @@ public class UserInterfaceImp implements UserInterface{
             String input = sc.nextLine();
             switch (input) {
                 case "1":
-                    login();
+                    try {
+                        login();
+                    } catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
                 case "2":
                     register();
@@ -47,12 +51,14 @@ public class UserInterfaceImp implements UserInterface{
 
     @Override
     public void login() throws Exception{
+        System.out.println(users);
         System.out.print("Inserisci il nickname: ");
         String nickname = sc.nextLine();
-        System.out.print("Inserisci la password");
+        System.out.print("Inserisci la password: ");
         String password = sc.nextLine();
         for(User user : users){
-            if(nickname.equals(user.getNickname()) && password.equals(user.getPassword())){
+
+            if((nickname.equals(user.getNickname())) && (password.equals(user.getPassword()))){
                 System.out.println("Sei loggato");
                 isLogged = true;
             }else{

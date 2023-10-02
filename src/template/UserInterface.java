@@ -4,7 +4,7 @@ public interface UserInterface {
 
     void run();
     void register();
-    void login();
+    void login() throws Exception;
     default void showAndCount(){
         showFollower();
         countFollower();
