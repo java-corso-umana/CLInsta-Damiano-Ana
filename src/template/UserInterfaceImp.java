@@ -1,5 +1,6 @@
 package template;
 
+import model.LoggedIn;
 import model.User;
 import utils.Database;
 
@@ -25,9 +26,6 @@ public class UserInterfaceImp implements UserInterface{
 
             do {
                 System.out.println(firstMessage);
-                for (User user : Database.users) {
-                    System.out.println(user.getName());
-                }
                 String input = sc.nextLine();
                 switch (input) {
                     case "1":
@@ -72,7 +70,8 @@ public class UserInterfaceImp implements UserInterface{
                 if ((nickname.equals(user.getNickname())) && (password.equals(user.getPassword()))) {
                     System.out.println("Sei loggato");
                     isLogged = true;
-                    runApp(user);
+                    LoggedIn logged = new LoggedIn(user);
+                    runApp(logged);
                 } else {
                     throw new Exception("Campi errati");
                 }
@@ -84,8 +83,8 @@ public class UserInterfaceImp implements UserInterface{
 
         }
 
-        public void runApp(User user) {
-            System.out.println("Benvenuto " + user.getName() + '\n');
+        public void runApp(LoggedIn logged) {
+            System.out.println("Benvenuto " + logged.user.getName() + '\n');
             boolean status = true;
             do {
                 System.out.println("Cosa vorresti fare?");
@@ -128,11 +127,13 @@ public class UserInterfaceImp implements UserInterface{
                         logoutAndLogin();
                         break;
                     case "0":
-                        logout();
-                        status = false;
+                        status = logout();
+                        isLogged = false;
+                        break;
+                    default:
                         break;
                 }
-            } while (status = true);
+            } while (status == true);
             run();
         }
 
@@ -159,9 +160,6 @@ public class UserInterfaceImp implements UserInterface{
             System.out.println(tmp);
         }
 
-        public static boolean startWithIgnoreCase(String str, String prefix) {
-            return str.regionMatches(true, 0, prefix, 0, prefix.length());
-        }
 
         @Override
         public void showAll() {
@@ -176,9 +174,9 @@ public class UserInterfaceImp implements UserInterface{
         }
 
         @Override
-        public void logout() {
+        public boolean logout() {
             System.out.println("Speriamo di rivederti presto");
-            isLogged = false;
+            return false;
         }
 
         @Override

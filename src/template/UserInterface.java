@@ -13,7 +13,7 @@ public interface UserInterface {
     void searchPeople();
     void showAll();
     void sendMessage();
-    void logout();
+    boolean logout();
     void follow();
     void logoutAndLogin();
 
