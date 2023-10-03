@@ -7,7 +7,7 @@ public class User {
     private String name;
     private String surname;
     private String nickname;
-    //private String date; TODO: aggiornare
+    private String date;
     private String password;
 
     private List<User> following = new ArrayList<>();
@@ -23,9 +23,10 @@ public class User {
         return str.regionMatches(true, 0, prefix, 0, prefix.length());
     }
 
-    public User(String name, String surname, String nickname, String password){
+    public User(String name, String surname,String date, String nickname, String password){
         this.name = name;
         this.surname = surname;
+        this.date = date;
         this.nickname = nickname;
         this.password = password;
     }
@@ -56,6 +57,14 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public void setPassword(String password) {

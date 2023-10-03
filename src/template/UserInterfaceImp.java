@@ -41,10 +41,11 @@ public class UserInterfaceImp implements UserInterface{
                         break;
                     case "E":
                         status = false;
+                        break;
                     default:
                         System.out.println("Comando non riconosciuto");
                 }
-            } while (status = true);
+            } while (status == true);
         }
 
         @Override
@@ -53,11 +54,13 @@ public class UserInterfaceImp implements UserInterface{
             String name = sc.nextLine();
             System.out.print("Inserisci il cognome: ");
             String surname = sc.nextLine();
+            System.out.println("Inserisci il tuo anno di nascita (DD-MM-YYYY): ");
+            String date = sc.nextLine();
             System.out.print("Inserisci un nickname: ");
             String nickname = sc.nextLine();
             System.out.print("Inserisci la tua nuova password: ");
             String password = sc.nextLine();
-            User user = new User(name, surname, nickname, password);
+            User user = new User(name, surname,date, nickname, password);
             Database.users.add(user);
         }
 
@@ -72,10 +75,11 @@ public class UserInterfaceImp implements UserInterface{
                     System.out.println("Sei loggato");
                         this.activeUser = user;
                         runApp();
-                } else {
-                    throw new Exception("Campi errati");
+                        break;
                 }
+                System.out.println("Utente non esiste");
             }
+
         }
 
 
@@ -83,6 +87,10 @@ public class UserInterfaceImp implements UserInterface{
 
     public void runApp() throws Exception {
             System.out.println("Benvenuto " + this.activeUser.getName() + '\n');
+            countFollower();
+            countFollow();
+            System.out.println("Hai " + this.activeUser.getMessages().size() +" Messaggi" );
+
             boolean status = true;
             do {
                 System.out.println("Cosa vorresti fare?");
@@ -98,7 +106,6 @@ public class UserInterfaceImp implements UserInterface{
                         9) Login con altro utente
                         10) Visualizza follower
                         11) Conta follower
-                        12) Visualizza messaggi ricevuti
                         0) Logout
                         """;
                 System.out.println(options);
@@ -125,6 +132,9 @@ public class UserInterfaceImp implements UserInterface{
                     case "7":
                         sendMessage();
                         break;
+                    case "8":
+                        showMessage();
+                        break;
                     case "9":
                         logoutAndLogin();
                         break;
@@ -134,9 +144,6 @@ public class UserInterfaceImp implements UserInterface{
                     case "11":
                         countFollower();
                         break;
-                    case "12":
-                        showMessage();
-                        break;
                     case "0":
                         status = logout();
                         break;
@@ -144,12 +151,13 @@ public class UserInterfaceImp implements UserInterface{
                         break;
                 }
             } while (status == true);
-            run();
+            //run();
         }
 
     private void showMessage() {
         for(String str : activeUser.getMessages()){
-            System.out.println(str);
+            System.out.println("Messaggio: " + str);
+            sc.nextLine();
         }
     }
 
@@ -169,8 +177,6 @@ public class UserInterfaceImp implements UserInterface{
         @Override
         public void countFollow() {
             System.out.println("In totale segui " + this.activeUser.getFollowing().size()+ " persone");
-            System.out.println("Premi invio per continuare...");
-            sc.nextLine();
         }
 
         @Override
@@ -222,6 +228,7 @@ public class UserInterfaceImp implements UserInterface{
                 if (Database.users.get(i).getNickname().equals(nickname)) {
                     Database.users.get(i).getMessages().add(message);
                     trovato = true;
+                    System.out.println("Messaggio inviato!");
                     break;
                 }
             }
@@ -264,10 +271,12 @@ public class UserInterfaceImp implements UserInterface{
     }
 
     public void showFollower(){
-            Database.users.stream().filter((u) -> u.getFollowing().contains(activeUser)).forEach(System.out::println);
+        Database.users.stream().filter((u) -> u.getFollowing().contains(activeUser)).forEach(System.out::println);
+        System.out.println("Premi invio per continuare...");
+        sc.nextLine();
     }
     public void countFollower(){
-        System.out.println("Follower: " + Database.users.stream().filter((u) -> u.getFollowing().contains(activeUser)).count());
+        System.out.println("Hai " + Database.users.stream().filter((u) -> u.getFollowing().contains(activeUser)).count() + " Follower");
     }
 
 
