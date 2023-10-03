@@ -86,7 +86,7 @@ public class UserInterfaceImp implements UserInterface{
 
 
     public void runApp() throws Exception {
-            System.out.println("Benvenuto " + this.activeUser.getName() + '\n');
+            System.out.println("Benvenuto " + this.activeUser.getName() + " " + this.activeUser.getSurname() + '\n');
             countFollower();
             countFollow();
             System.out.println("Hai " + this.activeUser.getMessages().size() +" Messaggi" );
