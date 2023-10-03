@@ -10,5 +10,7 @@ public class Main {
         Database.initDB();
         final UserInterfaceImp UI = new UserInterfaceImp();
         UI.run();
+
+
     }
 }

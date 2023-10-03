@@ -1,6 +1,5 @@
 package template;
 
-import model.LoggedIn;
 import model.User;
 import utils.Database;
 
@@ -11,7 +10,8 @@ import java.util.Scanner;
 public class UserInterfaceImp implements UserInterface{
 
 
-        boolean isLogged = false;
+        private User activeUser;
+
         Scanner sc = new Scanner(System.in);
 
         @Override
@@ -69,9 +69,8 @@ public class UserInterfaceImp implements UserInterface{
             for (User user : Database.users) {
                 if ((nickname.equals(user.getNickname())) && (password.equals(user.getPassword()))) {
                     System.out.println("Sei loggato");
-                    isLogged = true;
-                    LoggedIn logged = new LoggedIn(user);
-                    runApp(logged);
+                        this.activeUser = user;
+                        runApp();
                 } else {
                     throw new Exception("Campi errati");
                 }
@@ -83,8 +82,8 @@ public class UserInterfaceImp implements UserInterface{
 
         }
 
-        public void runApp(LoggedIn logged) {
-            System.out.println("Benvenuto " + logged.user.getName() + '\n');
+        public void runApp() {
+            System.out.println("Benvenuto " + this.activeUser.getName() + '\n');
             boolean status = true;
             do {
                 System.out.println("Cosa vorresti fare?");
@@ -128,7 +127,6 @@ public class UserInterfaceImp implements UserInterface{
                         break;
                     case "0":
                         status = logout();
-                        isLogged = false;
                         break;
                     default:
                         break;
@@ -176,6 +174,7 @@ public class UserInterfaceImp implements UserInterface{
         @Override
         public boolean logout() {
             System.out.println("Speriamo di rivederti presto");
+            this.activeUser = null;
             return false;
         }
 

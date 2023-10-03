@@ -15,7 +15,10 @@ public interface UserInterface {
     void sendMessage();
     boolean logout();
     void follow();
-    void logoutAndLogin();
+    default void logoutAndLogin() throws Exception {
+        logout();
+        login();
+    };
 
 
 }
