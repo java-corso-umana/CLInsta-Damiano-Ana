@@ -12,12 +12,21 @@ public class User {
 
     private List<User> following = new ArrayList<>();
 
+    private List<String> messages = new ArrayList<>();
 
     public User(String name, String surname, String nickname, String password){
         this.name = name;
         this.surname = surname;
         this.nickname = nickname;
         this.password = password;
+    }
+
+    public List<String> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 
     public List<User> getFollowing() {

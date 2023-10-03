@@ -1,6 +1,5 @@
 package template;
 
-import jdk.swing.interop.SwingInterOpUtils;
 import model.User;
 import utils.Database;
 
@@ -83,7 +82,7 @@ public class UserInterfaceImp implements UserInterface{
 
         }
 
-        public void runApp() {
+        public void runApp() throws Exception {
             System.out.println("Benvenuto " + this.activeUser.getName() + '\n');
             boolean status = true;
             do {
@@ -178,6 +177,14 @@ public class UserInterfaceImp implements UserInterface{
 
         @Override
         public void sendMessage() {
+            showAll();
+            System.out.println("Seleziona l'utente a cui vuoi mandare il messaggio");
+            int selectedUser = sc.nextInt();
+            sc.nextLine();
+            System.out.print("Inserisci il testo del messaggio: ");
+            String message = sc.nextLine();
+
+            Database.users.get(selectedUser - 1).getMessages().add(message);
 
         }
 
@@ -197,9 +204,6 @@ public class UserInterfaceImp implements UserInterface{
             this.activeUser.getFollowing().add(Database.users.get(indexFollow - 1));
         }
 
-        @Override
-        public void logoutAndLogin() {
 
-        }
     }
 
