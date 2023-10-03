@@ -98,6 +98,7 @@ public class UserInterfaceImp implements UserInterface{
                         9) Login con altro utente
                         10) Visualizza follower
                         11) Conta follower
+                        12) Visualizza messaggi ricevuti
                         0) Logout
                         """;
                 System.out.println(options);
@@ -133,6 +134,9 @@ public class UserInterfaceImp implements UserInterface{
                     case "11":
                         countFollower();
                         break;
+                    case "12":
+                        showMessage();
+                        break;
                     case "0":
                         status = logout();
                         break;
@@ -143,10 +147,20 @@ public class UserInterfaceImp implements UserInterface{
             run();
         }
 
-        @Override
+    private void showMessage() {
+        for(String str : activeUser.getMessages()){
+            System.out.println(str);
+        }
+    }
+
+    @Override
         public void showFollow() {
-            for(User user : this.activeUser.getFollowing()){
-                System.out.println(user);
+            if(!this.activeUser.getFollowing().isEmpty()){
+                for(User user : this.activeUser.getFollowing()){
+                    System.out.println(user);
+                }
+            } else {
+                System.out.println("Non hai utenti che segui");
             }
             System.out.println("Premi invio per continuare...");
             sc.nextLine();
@@ -161,16 +175,25 @@ public class UserInterfaceImp implements UserInterface{
 
         @Override
         public void searchPeople() {
-            System.out.println("Inserisci il nome che vuoi cercare");
+            showAll();
+            System.out.println("Inserisci l'iniziale del nome che vuoi cercare");
             String name = sc.nextLine();
             List<User> tmp = new ArrayList<>();
             for (User user : Database.users) {
-                if (user.getName().startsWith(name)) {
+                if(user.startsWithIgnoreCase(user.getName(),name)){
                     tmp.add(user);
                 }
             }
-            System.out.println(tmp);
+            if(!tmp.isEmpty()) {
+                System.out.println(tmp);
+            } else {
+                System.out.println("Nessun utente trovato");
+            }
+            System.out.println("Premi invio per continuare...");
+            sc.nextLine();
         }
+
+
 
 
         @Override
@@ -190,14 +213,20 @@ public class UserInterfaceImp implements UserInterface{
         @Override
         public void sendMessage() {
             showAll();
-            System.out.println("Seleziona l'utente a cui vuoi mandare il messaggio");
-            int selectedUser = sc.nextInt();
-            sc.nextLine();
+            System.out.println("Seleziona il nickname dell'utente a cui vuoi mandare il messaggio");
+            String nickname = sc.nextLine();
             System.out.print("Inserisci il testo del messaggio: ");
             String message = sc.nextLine();
-
-            Database.users.get(selectedUser - 1).getMessages().add(message);
-
+            boolean trovato = false;
+            for (int i = 0; i < Database.users.size(); i++) {
+                if (Database.users.get(i).getNickname().equals(nickname)) {
+                    Database.users.get(i).getMessages().add(message);
+                    trovato = true;
+                    break;
+                }
+            }
+            if(!trovato)
+                System.out.println("Utente non trovato");
         }
 
         @Override

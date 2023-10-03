@@ -18,6 +18,10 @@ public class User {
         User other = (User) o;
         return this.nickname.equals(other.getNickname());
     }
+    public static boolean startsWithIgnoreCase(String str, String prefix)
+    {
+        return str.regionMatches(true, 0, prefix, 0, prefix.length());
+    }
 
     public User(String name, String surname, String nickname, String password){
         this.name = name;
