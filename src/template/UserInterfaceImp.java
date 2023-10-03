@@ -1,5 +1,6 @@
 package template;
 
+import jdk.swing.interop.SwingInterOpUtils;
 import model.User;
 import utils.Database;
 
@@ -102,10 +103,10 @@ public class UserInterfaceImp implements UserInterface{
                 String input = sc.nextLine();
                 switch (input) {
                     case "1":
-                        showFollower();
+                        showFollow();
                         break;
                     case "2":
-                        countFollower();
+                        countFollow();
                         break;
                     case "3":
                         showAndCountFollow();
@@ -136,13 +137,19 @@ public class UserInterfaceImp implements UserInterface{
         }
 
         @Override
-        public void showFollower() {
-
+        public void showFollow() {
+            for(User user : this.activeUser.getFollowing()){
+                System.out.println(user);
+            }
+            System.out.println("Premi invio per continuare...");
+            sc.nextLine();
         }
 
         @Override
-        public void countFollower() {
-
+        public void countFollow() {
+            System.out.println("In totale segui " + this.activeUser.getFollowing().size()+ " persone");
+            System.out.println("Premi invio per continuare...");
+            sc.nextLine();
         }
 
         @Override
@@ -161,10 +168,13 @@ public class UserInterfaceImp implements UserInterface{
 
         @Override
         public void showAll() {
+            int i = 1;
             for (User user : Database.users) {
-                System.out.println(user.toString());
+                System.out.println(i + ") " + user.toString());
+                i++;
             }
         }
+
 
         @Override
         public void sendMessage() {
@@ -180,7 +190,11 @@ public class UserInterfaceImp implements UserInterface{
 
         @Override
         public void follow() {
-
+            showAll();
+            System.out.println("Inserisci l'indice dell'utente da seguire");
+            int indexFollow = sc.nextInt();
+            sc.nextLine();
+            this.activeUser.getFollowing().add(Database.users.get(indexFollow - 1));
         }
 
         @Override

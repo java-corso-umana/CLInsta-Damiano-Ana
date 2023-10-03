@@ -10,7 +10,8 @@ public class User {
     //private String date; TODO: aggiornare
     private String password;
 
-    public List<User> following = new ArrayList<>();
+    private List<User> following = new ArrayList<>();
+
 
     public User(String name, String surname, String nickname, String password){
         this.name = name;
@@ -19,6 +20,13 @@ public class User {
         this.password = password;
     }
 
+    public List<User> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<User> following) {
+        this.following = following;
+    }
 
     public void setName(String name) {
         this.name = name;

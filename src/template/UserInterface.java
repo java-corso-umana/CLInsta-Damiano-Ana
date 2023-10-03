@@ -8,8 +8,8 @@ public interface UserInterface {
     void register();
     void login() throws Exception;
     void showAndCountFollow();
-    void showFollower();
-    void countFollower();
+    void showFollow();
+    void countFollow();
     void searchPeople();
     void showAll();
     void sendMessage();
