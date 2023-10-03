@@ -125,6 +125,12 @@ public class UserInterfaceImp implements UserInterface{
                     case "9":
                         logoutAndLogin();
                         break;
+                    case "10":
+                        showFollower();
+                        break;
+                    case "11":
+                        countFollower();
+                        break;
                     case "0":
                         status = logout();
                         break;
@@ -204,11 +210,16 @@ public class UserInterfaceImp implements UserInterface{
             showAll();
             System.out.println("Inserisci il nickname dell'utente da seguire");
             String nicknameFollow = sc.nextLine();
+            boolean trovato = false;
             for (int i = 0; i < Database.users.size(); i++) {
                 if (Database.users.get(i).getNickname().equals(nicknameFollow)) {
                     this.activeUser.getFollowing().add(Database.users.get(i));
+                    trovato = true;
+                    break;
                 }
             }
+            if(!trovato)
+                System.out.println("Utente non trovato");
         }
 
     @Override
@@ -219,6 +230,13 @@ public class UserInterfaceImp implements UserInterface{
     @Override
     public void showAndCountFollow(){
         UserInterface.super.showAndCountFollow();
+    }
+
+    public void showFollower(){
+            Database.users.stream().filter((u) -> u.getFollowing().contains(activeUser)).forEach(System.out::println);
+    }
+    public void countFollower(){
+        System.out.println("Follower: " + Database.users.stream().filter((u) -> u.getFollowing().contains(activeUser)).count());
     }
 
 

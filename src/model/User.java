@@ -13,6 +13,11 @@ public class User {
     private List<User> following = new ArrayList<>();
 
     private List<String> messages = new ArrayList<>();
+    @Override
+    public boolean equals(Object o){
+        User other = (User) o;
+        return this.nickname.equals(other.getNickname());
+    }
 
     public User(String name, String surname, String nickname, String password){
         this.name = name;
