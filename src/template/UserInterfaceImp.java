@@ -77,12 +77,10 @@ public class UserInterfaceImp implements UserInterface{
             }
         }
 
-        @Override
-        public void showAndCountFollow() {
 
-        }
 
-        public void runApp() throws Exception {
+
+    public void runApp() throws Exception {
             System.out.println("Benvenuto " + this.activeUser.getName() + '\n');
             boolean status = true;
             do {
@@ -205,6 +203,16 @@ public class UserInterfaceImp implements UserInterface{
             this.activeUser.getFollowing().add(Database.users.get(indexFollow - 1));
         }
 
-
+    @Override
+    public void logoutAndLogin() throws Exception {
+        UserInterface.super.logoutAndLogin();
     }
+
+    @Override
+    public void showAndCountFollow(){
+        UserInterface.super.showAndCountFollow();
+    }
+
+
+}
 

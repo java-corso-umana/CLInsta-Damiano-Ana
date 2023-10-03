@@ -1,13 +1,14 @@
 package template;
 
-import java.util.List;
-
 public interface UserInterface {
 
     void run();
     void register();
     void login() throws Exception;
-    void showAndCountFollow();
+    default void showAndCountFollow(){
+        showFollow();
+        countFollow();
+    };
     void showFollow();
     void countFollow();
     void searchPeople();
