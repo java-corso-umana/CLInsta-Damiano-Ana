@@ -87,8 +87,8 @@ public class UserInterfaceImp implements UserInterface{
             do {
                 System.out.println("Cosa vorresti fare?");
                 String options = """
-                        1) Visualizza follower
-                        2) Conta follower
+                        1) Visualizza follow
+                        2) Conta follow
                         3) Visualizza e conta seguiti
                         4) Ricerca utenti
                         5) Stampa tutti gli utenti
@@ -96,6 +96,8 @@ public class UserInterfaceImp implements UserInterface{
                         7) Scrivi ad un utente
                         8) Visualizza i tuoi messaggi
                         9) Login con altro utente
+                        10) Visualizza follower
+                        11) Conta follower
                         0) Logout
                         """;
                 System.out.println(options);
