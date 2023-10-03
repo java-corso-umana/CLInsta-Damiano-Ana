@@ -95,6 +95,7 @@ public class UserInterfaceImp implements UserInterface{
                         5) Stampa tutti gli utenti
                         6) Segui utente
                         7) Scrivi ad un utente
+                        8) Visualizza i tuoi messaggi
                         9) Login con altro utente
                         0) Logout
                         """;
